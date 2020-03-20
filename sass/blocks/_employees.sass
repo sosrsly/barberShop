@@ -1,0 +1,33 @@
+.employees
+    min-height: 500px
+    &__wrapper
+        display: flex
+        justify-content: space-around
+    &__item
+        position: relative
+        width: 30%
+        height: 950px
+        &:nth-child(1)
+            background: url("/img/emp1.webp") center center/cover no-repeat
+        &:nth-child(2)
+            background: url("/img/emp2.webp") center center/cover no-repeat
+        &:nth-child(3)
+            background: url("/img/emp3.webp") center center/cover no-repeat
+            
+    &__content
+        position: absolute
+        bottom: 0
+        margin-bottom: 90px
+    &__name
+        font-size: 22px
+        text-align: center
+        color: white
+    &__descr
+        text-align: center
+        margin-top: 40px
+    &__button
+        display: block
+        color: black
+        margin: 0 auto
+        text-align: center
+        margin-top: 40px
