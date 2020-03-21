@@ -1,115 +1,40 @@
-window.addEventListener("DOMContentLoaded", () => {
-  'use strict';
-  //modal 
-  const buttons = document.querySelectorAll("button");
-  const overlay = document.querySelector(".overlay");
-  const modal = document.querySelector("#modal-consultation");
-  const close = document.querySelectorAll(".close");
-  const modalButton = document.querySelector(".modal__button");
-  const modalThanks = document.querySelector("#modal-thanks");
 
-  buttons[0].addEventListener("click", openModalWindow);
-  buttons[1].addEventListener("click", openModalWindow);
-  modalButton.addEventListener("click", openModalThanks);
-  close[0].addEventListener("click", hideModalWindow);
-  close[1].addEventListener("click", hideModalWindow);
+  var tag = document.createElement('script');
 
-  function openModalWindow() {
-    overlay.style.display = "block";
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
-  }
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-  function hideModalWindow() {
-    overlay.style.display = "";
-    modal.style.display = "";
-    modalThanks.style.display = "";
-    document.body.style.overflow = "";
-  }
+  var player;
 
-  function openModalThanks(e) {
-    e.preventDefault();
-    modal.style.display = "";
-    modalThanks.style.display = "block";
-  }
-
-  //slider, tabs
-  const tabWrapper = document.querySelector(".info__header");
-  const tabs = document.querySelectorAll(".info__tab");
-  const content = document.querySelectorAll(".info__tab-content");
-  const next = document.querySelector(".arrow-right");
-  const prev = document.querySelector(".arrow-left");
-  let currentSlide = 0;
-
-  showContent(currentSlide);
-
-  function showContent(n) {
-    if (n > content.length - 1) {
-      n = 0;
-    } else if (n < 0) {
-      n = content.length - 1;
-    }
-
-    for (let i = 0; i < content.length; i++) {
-      content[i].classList.add("hidden");
-      content[i].classList.remove("show");
-      tabs[i].classList.remove("info__tab_active");
-    }
-    content[n].classList.remove("hidden");
-    content[n].classList.add("show");
-    tabs[n].classList.add("info__tab_active");
-    currentSlide = n;
-  }
-
-
-  tabWrapper.addEventListener("click", e => {
-    if (e.target.classList.contains("info__tab")) {
-      for (let i = 0; i < tabs.length; i++) {
-        if (e.target == tabs[i]) {
-          showContent(i);
-          break;
-        }
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      height: '1050px',
+      width: '2500px',
+      videoId: 'RbfJTBBIrso',
+      playerVars: { 'autoplay': 1, 'controls': 0 },
+      loopPlaylists: true,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
       }
+    });
+  }
+
+  function onPlayerReady(event) {
+    event.target.setVolume(50);
+    event.target.playVideo();
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.ENDED) {
+      event.target.playVideo();
     }
-  });
-
-  function plusSlide(n) {
-    showContent(currentSlide += n);
   }
-  next.addEventListener("click", e => {
-    plusSlide(1);
-  });
-  prev.addEventListener("click", e => {
-    plusSlide(-1);
-  });
-
-// pageup
-const pageUp = document.querySelector(".pageup");
-
-window.addEventListener("scroll", (e) => {
-  if (window.pageYOffset > 1800) {
-    pageUp.style.display = "block";
-  } else {
-    pageUp.style.display = "";
+  
+  function stopVideo() {
+    player.stopVideo();
   }
-});
-pageUp.addEventListener("click", () => {
-  window.scrollTo({ 
-    top: 0, 
-    behavior: 'smooth'
-  });
-});
 
-
-
-  
-  
-
-
-
-
-
-
-});
 
   
