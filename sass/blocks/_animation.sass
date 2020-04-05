@@ -1,0 +1,57 @@
+.hidden
+    display: none
+
+.show
+    display: block
+
+.active-dot
+    background-color: black
+
+.fade
+    animation-name: fade
+    animation-duration: 0.7s
+
+.fadeOut
+    animation-name: fadeOut
+    animation-duration: 0.7s
+.more
+    cursor: pointer
+    font-size: 35px
+
+.NoVis
+    visibility: hidden
+
+.YesVis
+    visibility: visible
+
+.darken
+    background-color: rgba(1,1,1,.7) !important
+    background-blend-mode: darken !important
+    transition: all 0.4s
+    transform: scale(1.05)
+
+
+
+
+@keyframes fade
+    0% 
+        opacity: 0.1
+    100%
+        opacity: 1
+
+@keyframes fadeOut
+    0% 
+        opacity: 1
+    100%
+        opacity: 0.1
+
+@keyframes ripple
+    0%
+        transform: scale(0)
+        opacity: 1
+    10%
+        transform: scale(1.5)
+        opacity: 0.8
+    20%, 100%
+        opacity: 0
+        transform: scale(2)

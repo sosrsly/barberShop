@@ -11,10 +11,6 @@
         line-height: 50px
         text-decoration: none
         
-    &__social
-        img
-            width: 30px
-            height: 30px
     &__contacts
         width: 25%
         display: flex
@@ -32,6 +28,7 @@
         padding-left: 30px
         font-size: 21px
         color: white
+        text-decoration: none
 
 .main-label
     width: 25%
@@ -40,10 +37,44 @@
     color: white
 
 .button
+    position: relative
     display: block
     border: 1px solid white
     background-color: rgba(1, 1, 1, 0)
     color: white
     width: 170px
     height: 40px
+    cursor: pointer
+    transition: background-color .7s
+    overflow: hidden
+    &:hover
+        background-color: rgba(255, 255, 255, .6)
+        color: black
+    &::after
+        content: ''
+        position: absolute
+        height: 350%
+        width: 200%
+        top: 0
+        left: -100%
+        background: rgba(255, 255, 255, 0.8)
+        border-radius: 100%
+        -webkit-transform: scale(0)
+        -ms-transform: scale(0)
+        transform: scale(0)
+        z-index: 20
+        -webkit-animation-name: ripple
+        animation-name: ripple
+        -webkit-animation-duration: 5s
+        animation-duration: 5s
+        -webkit-animation-timing-function: linear
+        animation-timing-function: linear
+        -webkit-animation-iteration-count: infinite
+        animation-iteration-count: infinite
+        animation-delay: 3s     
+
+.new_label
+    display: none
+.new_phone
+    display: none
     

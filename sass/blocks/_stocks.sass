@@ -1,9 +1,12 @@
 .stocks
     min-height: 1200px
     display: flex
+    overflow: hidden
     &__block
         position: relative
         width: 50%
+        cursor: pointer
+        transition: 0.5s
         &:nth-child(1)
             background: url("/img/block1.jpg") center center/cover no-repeat
             background-color: rgba(1,1,1,.7)
@@ -36,4 +39,7 @@
         margin-top: 25px
     &__button
         margin: 0 auto
-        margin-top: 35px
+        margin-top: -30px
+
+.test 
+    background-color: rgba(1,1,1,.5)
