@@ -219,7 +219,7 @@ for (let i = 0; i < worksItems.length; i++) {
 
 function createImg(index) {
   const img = document.createElement('img');
-  img.src = `/img/${index}.jpg`;
+  img.src = `img/${index}.jpg`;
   img.classList.add('popup_img');
   img.classList.add('fade');
   return img;
