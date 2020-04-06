@@ -1,5 +1,5 @@
 
-if (document.body.clientWidth >= 768) {
+if (document.body.clientWidth >= 576) {
 
   // youtube player promo section
   var tag = document.createElement('script');
