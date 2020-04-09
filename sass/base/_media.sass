@@ -275,6 +275,8 @@
 
     .promo
         height: 100vh
+        &__content
+
     .main-label
         width: 40%
         font-size: 30px
@@ -305,37 +307,6 @@
             text-align: center
             font-size: 25px
             font-weight: 300
-
-    .hamburger
-        width: 30px
-        height: 31px
-        position: fixed
-        top: 2%
-        right: 4%
-        z-index: 100
-        span
-            display: block
-            height: 3px
-            width: 30px
-            background-color: white
-            margin-top: 5px
-            transition: all 0.6s
-        &_active
-            span
-                margin-bottom: -7px
-                &:nth-child(1)
-                    transform: translateY(3px) rotate(-40deg)
-                &:nth-child(2)
-                    display: none
-                &:nth-child(3)
-                    transform: translateY(3px) rotate(45deg)
-                    
-        
-
-        
-
-    
-    
     .header
         &__contacts
             display: none
@@ -464,8 +435,7 @@
     .popup
         img
             height: 65%
-
-        
+   
 
 
                 
@@ -477,8 +447,41 @@
     .main-label
         display: none
 
+
+    .hamburger_header
+        width: 100%
+        height: 40px
+        background-color: rgba(1,1,1,.4)
+        position: fixed
+        top: 0
+        left: 0
+        z-index: 10
+        display: flex
+        justify-content: flex-end
+        align-items: center
+
     .hamburger
-        right: 4%
+        width: 30px
+        height: 31px
+        margin-right: 15px
+        cursor: pointer
+        z-index: 120
+        span
+            display: block
+            height: 3px
+            width: 30px
+            background-color: white
+            margin-top: 5px
+            transition: all 0.6s
+        &_active
+            span
+                margin-bottom: -7px
+                &:nth-child(1)
+                    transform: translateY(3px) rotate(-40deg)
+                &:nth-child(2)
+                    display: none
+                &:nth-child(3)
+                    transform: translateY(3px) rotate(45deg)
 
     .promo
         height: 500px
@@ -610,6 +613,14 @@
 
     .btn-signin
         margin-top: 15px
+
+    .popup
+        &-next 
+            display: none
+        &-prev
+            display: none
+        img
+            height: 35%
 
 
 

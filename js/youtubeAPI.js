@@ -1,11 +1,5 @@
 // youtube player promo section
-var tag = document.createElement('script');
-
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-var player;
+let player;
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
@@ -34,4 +28,12 @@ function onPlayerStateChange(event) {
 
 function stopVideo() {
   player.stopVideo();
+}
+
+let mql = window.matchMedia('all and (max-width: 575px)');
+if (!mql.matches) {
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }

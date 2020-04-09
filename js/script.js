@@ -85,7 +85,7 @@ const nextArrow = document.querySelector(".next-arrow");
 const prevArrow = document.querySelector(".prev-arrow");
 const dotsWrapper = document.querySelector(".reviews__dots");
 const dots = document.querySelectorAll(".reviews__dot");
-var currentSlide = 1;
+let currentSlide = 1;
 
 //MORE
 const description = document.querySelectorAll('.reviews__descr');
@@ -113,8 +113,8 @@ const btnGetInfo = document.querySelector('.btn-signin');
 
 
 
-var mql = window.matchMedia('all and (max-width: 575px)');
-if (!mql.matches) {
+let mql2 = window.matchMedia('all and (max-width: 575px)');
+if (!mql2.matches) {
   // reviews carousel
   showSlide(currentSlide);
 
@@ -308,8 +308,8 @@ if (!mql.matches) {
   const menu = document.querySelector('.navigator-menu__list');
 
   hamburger.addEventListener("click", (e) => {
-      hamburger.classList.toggle('hamburger_active');
-      menu.classList.toggle('navigator-menu__list_active');
+    hamburger.classList.toggle('hamburger_active');
+    menu.classList.toggle('navigator-menu__list_active');
   });
 
   const button = document.querySelectorAll('.button');
@@ -374,25 +374,109 @@ if (!mql.matches) {
   popupBG.append(img);
   });
 
+  //reviews
+  dotsWrapper.addEventListener("click", (e) => {
+    if (e.target.classList.contains("reviews__dot")) {
+      for (let i = 0; i < dots.length + 1; i++) {
+        if (dots[i - 1] == e.target) {
+          currentSlide = i;
+          showSlide(i);
+        }
+      }
+    }
+  });
+
+  //MORE
+  description.forEach((item, i) => {
+    oldText.push(item.textContent);
+    changeContent(item, i);
+  });
+
+
+  const more = document.querySelectorAll('.more');
+
+  for (let i = 0; i < more.length; i++) {
+    more[i].addEventListener('click', (e) => {
+      for (let i = 0; i < description.length; i++) {
+        if (e.target.getAttribute('data-index-more') === description[i].getAttribute('data-index-content')) {
+          description[i].textContent = oldText[i];
+        }
+      }
+    });
+  }
+
   //swipe
+
   const block = document.querySelectorAll('.blockT');
   const wrapperBlock = document.querySelector('.Tblock_wrapper');
-  console.log(block[0]);
-  block[0].addEventListener('touchstart', (e) => {
-    console.log('тачнул');
-    console.log(e.changedTouches);
+  let startPoint={};
+  let nowPoint;
+  let ldelay;
+
+  const blockT = document.querySelectorAll('.blockT');
+  const reviews = document.querySelector('.reviews');
+  reviews.addEventListener('touchstart', function(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+    startPoint.x=event.changedTouches[0].pageX;
+    startPoint.y=event.changedTouches[0].pageY;
+    ldelay=new Date();
   });
 
-  block[0].addEventListener('touchmove', (e) => {
-    console.log('двигнул');
+  /*Ловим движение пальцем*/
+  reviews.addEventListener('touchmove', function(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+    let otk={};
+    nowPoint=event.changedTouches[0];
+    otk.x=nowPoint.pageX-startPoint.x;
+    /*Обработайте данные*/
+    /*Для примера*/
+    if(Math.abs(otk.x)>140){
+      if(otk.x<0){
+        // СВАЙП ВЛЕВО
+        plusSlide(-1);
+      }
+      if(otk.x>0){
+        // СВАЙП ВПРАВО
+        plusSlide(1);
+      }
+      startPoint={x:nowPoint.pageX,y:nowPoint.pageY};
+    }
   });
 
-  block[0].addEventListener('touchend', (e) => {
-    console.log('кончил');
+  /*Ловим отпускание пальца*/
+  reviews.addEventListener('touchend', function(event) {
+    var pdelay=new Date();
+    nowPoint=event.changedTouches[0];
+    var xAbs = Math.abs(startPoint.x - nowPoint.pageX);
+    var yAbs = Math.abs(startPoint.y - nowPoint.pageY);
+
+    if ((xAbs > 20 || yAbs > 20) && (pdelay.getTime()-ldelay.getTime())<200) {
+      if (xAbs > yAbs) {
+        if (nowPoint.pageX < startPoint.x){
+          /*СВАЙП ВЛЕВО*/
+          plusSlide(-1);
+        }
+        else{
+          /*СВАЙП ВПРАВО*/
+          plusSlide(1);
+        }
+      }
+      else {
+        if (nowPoint.pageY < startPoint.y){
+          /*СВАЙП ВВЕРХ*/
+          console.log("SWIPE UP");
+        }
+        else{
+          /*СВАЙП ВНИЗ*/
+          console.log("SWIPE BOT");
+        }
+      }
+    }
   });
 
 
-  
 
 
 
@@ -401,7 +485,74 @@ if (!mql.matches) {
 
 
 
+  popup.addEventListener('touchstart', function(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+    startPoint.x=event.changedTouches[0].pageX;
+    startPoint.y=event.changedTouches[0].pageY;
+    ldelay=new Date();
+  });
 
+  /*Ловим движение пальцем*/
+  popup.addEventListener('touchmove', function(event) {
+    // event.preventDefault();
+    event.stopPropagation();
+    let otk={};
+    nowPoint=event.changedTouches[0];
+    otk.x=nowPoint.pageX-startPoint.x;
+    /*Обработайте данные*/
+    /*Для примера*/
+    if(Math.abs(otk.x)>140){
+      if(otk.x<0){
+        // СВАЙП ВЛЕВО
+        popupBG.innerHTML = '';
+        const img = createImg(takeCurrentImg(1) + 1);
+        popupBG.append(img);
+      }
+      if(otk.x>0){
+        // СВАЙП ВПРАВО
+        popupBG.innerHTML = '';
+        const img = createImg(takeCurrentImg(-1) + 1);
+        popupBG.append(img);
+      }
+      startPoint={x:nowPoint.pageX,y:nowPoint.pageY};
+    }
+  });
+
+  /*Ловим отпускание пальца*/
+  popup.addEventListener('touchend', function(event) {
+    var pdelay=new Date();
+    nowPoint=event.changedTouches[0];
+    var xAbs = Math.abs(startPoint.x - nowPoint.pageX);
+    var yAbs = Math.abs(startPoint.y - nowPoint.pageY);
+
+    if ((xAbs > 20 || yAbs > 20) && (pdelay.getTime()-ldelay.getTime())<200) {
+      if (xAbs > yAbs) {
+        if (nowPoint.pageX < startPoint.x){
+          /*СВАЙП ВЛЕВО*/
+          popupBG.innerHTML = '';
+          const img = createImg(takeCurrentImg(1) + 1);
+          popupBG.append(img);
+        }
+        else{
+          /*СВАЙП ВПРАВО*/
+          popupBG.innerHTML = '';
+          const img = createImg(takeCurrentImg(-1) + 1);
+          popupBG.append(img);
+        }
+      }
+      else {
+        if (nowPoint.pageY < startPoint.y){
+          /*СВАЙП ВВЕРХ*/
+          console.log("SWIPE UP");
+        }
+        else{
+          /*СВАЙП ВНИЗ*/
+          console.log("SWIPE BOT");
+        }
+      }
+    }
+  });
 
 }
 
