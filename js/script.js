@@ -219,11 +219,13 @@ if (!mql2.matches) {
       popup.style.display = 'block';
       let img = createImg(index);
       popupBG.append(img);
+      
     });
   }
 
   //При клике на BG скрывать модальное изображение
   popupBG.addEventListener('click', (e) => {
+    document.body.style.overflow = "";
     hideModal();
   });
 
@@ -328,7 +330,7 @@ if (!mql2.matches) {
   alert('Успех');
   overlay.style.display = 'none';
   });
-  
+
 } else {
   //IF OFFSET WIDTH < 576
   //hamgurger
@@ -372,6 +374,7 @@ if (!mql2.matches) {
   let index = i + 1;
   worksItems[i].addEventListener('click', (e) => {
       popup.style.display = 'block';
+      document.body.style.overflow = "hidden";
       let img = createImg(index);
       popupBG.append(img);
   });
@@ -380,6 +383,7 @@ if (!mql2.matches) {
   //При клике на BG скрывать модальное изображение
   popupBG.addEventListener('click', (e) => {
   hideModal();
+  document.body.style.overflow = "";
   });
 
 
