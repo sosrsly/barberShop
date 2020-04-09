@@ -32,6 +32,7 @@ function stopVideo() {
 
 let mql = window.matchMedia('all and (max-width: 575px)');
 if (!mql.matches) {
+  console.log(mql.matches);
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
