@@ -111,7 +111,9 @@ const button = document.querySelectorAll('.button');
 const overlay = document.querySelector('.overlay');
 const btnGetInfo = document.querySelector('.btn-signin');
 
-
+// hamburger
+const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.navigator-menu__list');
 
 let mql2 = window.matchMedia('all and (max-width: 575px)');
 if (!mql2.matches) {
@@ -301,20 +303,40 @@ if (!mql2.matches) {
       behavior: "smooth"
     });
   });
-} else {
-  //IF OFFSET WIDTH < 576
-  //habgurger
-  const hamburger = document.querySelector('.hamburger');
-  const menu = document.querySelector('.navigator-menu__list');
+
+  //hamgurger
 
   hamburger.addEventListener("click", (e) => {
     hamburger.classList.toggle('hamburger_active');
     menu.classList.toggle('navigator-menu__list_active');
   });
 
-  const button = document.querySelectorAll('.button');
-  const overlay = document.querySelector('.overlay');
-  const btnGetInfo = document.querySelector('.btn-signin');
+  for (let btn of button) {
+  btn.addEventListener('click', () => {
+      overlay.style.display = 'block';
+  });
+  }
+
+  overlay.addEventListener('click', (e) => {
+  if (e.target.classList.contains('overlay')) {
+      overlay.style.display = 'none';
+  }
+  });
+
+  btnGetInfo.addEventListener('click', (e) => {
+  e.preventDefault();
+  alert('Успех');
+  overlay.style.display = 'none';
+  });
+  
+} else {
+  //IF OFFSET WIDTH < 576
+  //hamgurger
+
+  hamburger.addEventListener("click", (e) => {
+    hamburger.classList.toggle('hamburger_active');
+    menu.classList.toggle('navigator-menu__list_active');
+  });
 
   for (let btn of button) {
   btn.addEventListener('click', () => {
@@ -476,15 +498,7 @@ if (!mql2.matches) {
     }
   });
 
-
-
-
-
-
-
-
-
-
+  // swipe section works
   popup.addEventListener('touchstart', function(event) {
     // event.preventDefault();
     event.stopPropagation();
