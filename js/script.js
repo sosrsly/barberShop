@@ -418,6 +418,14 @@ if (!mql2.matches) {
     changeContent(item, i);
   });
 
+  nextArrow.addEventListener("click", () => {
+    plusSlide(1);
+  });
+
+  prevArrow.addEventListener("click", () => {
+    plusSlide(-1);
+  });
+
 
   const more = document.querySelectorAll('.more');
 
